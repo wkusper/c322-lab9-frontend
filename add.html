@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="navbar.css">
+    <title>Add a duck</title>
+  </head>
+  <body>
+    <ul class="topnav">
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="add.html">Add ducks</a></li>        
+      <li><a href="search.html">Search ducks</a></li>
+      <li><a href="pond.html">Pond</a></li>
+      <li class="right"><a  href="login.html">Login</a></li>
+    </ul>
+    <div>
+      <label>Name:</label>
+      <input id="name" />
+      <label>Type:</label>
+      <input id="type" />
+      <label>Image:</label>
+      <input type="file" id="imageInput" />
+      <button onclick="addTheDuck()">Add the duck</button>
+    </div>
+    <script>
+      let host = "http://localhost:8080";
+          async function addTheDuck() {
+              let message = "";
+                let duckName = document.getElementById("name").value;
+                let duckType = document.getElementById("type").value;
+
+                //alert("You entered: id=" + duckId + " ,type=" + duckType);
+                //let duck = {x: duckId, y: duckType};
+                //alert("You entered: id=" + duck.x + " ,type=" + duck.y);
+
+                let duck = {name: duckName, type: duckType};
+                //alert("You entered: id=" + duck.id + " ,type=" + duck.type);
+
+                console.log("You entered:" + JSON.stringify(duck));
+
+                let request = {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(duck)
+                };
+                let response = await fetch(host + "/ducks", request);
+                if(response.status == 200) {
+                  let id = await response.json();
+                  let result = await submitTheImage(id);
+                  if(result) {
+                      message = "The duck was added successfully!";
+                  } else {
+                      message = "Something went wrong! Duck data was saved successfully but duck image was not saved.";
+                  }
+                } else {
+                  console.log(response);
+                  message = "Something went wrong! Duck data could not be saved.";
+                }
+                console.log(message);
+          }
+
+          async function submitTheImage(duckId) {               
+                let imageInput = document.getElementById("imageInput");            
+                let formData = new FormData();
+                formData.append("file", imageInput.files[0]);
+                let request = {
+                  method: "POST",
+                  body: formData
+                };
+                let response = await fetch(host + "/ducks/" + duckId + "/image", request);
+                let result = await response.json();
+                return result;
+
+          }
+    </script>
+  </body>
+</html>

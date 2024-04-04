@@ -1,0 +1,19 @@
+table {
+    border: 1px solid;
+    border-collapse: collapse;
+    margin: 30px;
+  }
+
+  table td,
+  th {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+  }
+
+  table td:first-child {
+    border-left: none;
+  }
+
+  table td:last-child {
+    border-right: none;
+  }

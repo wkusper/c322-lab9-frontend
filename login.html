@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="login.css">
+    <title>Login/Registeration</title>
+</head>
+<body>
+    <ul class="topnav">
+        <li><a  href="index.html">Home</a></li>
+        <li><a href="add.html">Add ducks</a></li>        
+        <li><a href="search.html">Search ducks</a></li>
+        <li><a href="pond.html">Pond</a></li>
+        <li class="right"><a  class="active" href="login.html">Login</a></li>
+    </ul>
+
+      <div class="container">
+        <form>
+          <div class="row">
+            <h2 style="text-align:center">Login with Social Media or Manually</h2>
+            <div class="vl">
+              <span class="vl-innertext">or</span>
+            </div>
+      
+            <div class="col">
+              <a href="#" class="fb btn">
+                <i class="fa fa-facebook fa-fw"></i> Login with Github
+              </a>           
+              <a href="#" class="google btn">
+                <i class="fa fa-google fa-fw"></i> Login with Google
+              </a>
+            </div>
+      
+            <div class="col">
+              <div class="hide-md-lg">
+                <p>Or sign in manually:</p>
+              </div>
+      
+              <input type="text" id="username" placeholder="Username" required>
+              <input type="password" id="password" placeholder="Password" required>
+              <input type="button" onclick="login()" value="Login">
+            </div>
+      
+          </div>
+        </form>
+      </div>
+      
+      <div class="bottom-container">
+        <div class="row">
+          <div class="col">
+            <a href="register.html" style="color:white" class="btn">Sign up</a>
+          </div>
+          <div class="col">
+            <a href="#" style="color:white" class="btn">Forgot password?</a>
+          </div>
+        </div>
+      </div>
+
+ 
+    
+</body>
+</html>

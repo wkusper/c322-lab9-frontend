@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="pond.css">
+    <title>The pond</title>    
+  </head>
+  <body>
+    <ul class="topnav">
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="add.html">Add ducks</a></li>        
+      <li><a href="search.html">Search ducks</a></li>
+      <li><a href="pond.html">Pond</a></li>
+      <li class="right"><a  href="login.html">Login</a></li>
+    </ul>
+
+    <div id="pond"></div>
+
+    <script>
+      let host = "http://localhost:8080";
+      let ducks = [];
+      displayTheDucks();
+
+      async function getAll() {
+        let response = await fetch(host + "/ducks");
+        let result = await response.json();
+        return result;
+      }
+
+      async function displayTheDucks() {
+        if (ducks.length == 0) {
+          ducks = await getAll();
+        }
+
+        let pond = document.getElementById("pond");
+        pond.innerHTML = "";
+
+        for (let duck of ducks) {
+          let div = document.createElement("div");
+          div.className = "flip-card";
+          let innerHtml = `
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+               <img
+                   src="${host}/ducks/${duck.id}/image"
+                   alt="Duck"
+                   style="width: 100%"
+                />
+              </div>
+              <div class="flip-card-back">
+                <h1>${duck.name}</h1>
+                <p>${duck.type}</p>
+               </div>
+            </div>
+            `;
+          div.innerHTML = innerHtml;
+          pond.appendChild(div);
+        }
+      }
+    </script>
+  </body>
+</html>
